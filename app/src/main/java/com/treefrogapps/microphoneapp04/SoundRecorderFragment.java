@@ -29,12 +29,11 @@ public class SoundRecorderFragment extends Fragment {
     private volatile boolean isRecording;
 
     private long mSystemTime;
-    private int mCounter = 0;
     private long updateRate = 100L; // 10th of a second
 
 
     // 1024 'Bins' - each bin roughly 44hz (44,100(sample rate) / 1024 = 44)
-    // 1024 bins equals 512 frequency ranges
+    // 1024 bins equals 512 frequency ranges - waveform half are negative
     // bin fill time for 1024 bins : 1024 / 44,100 = 0.0232199 seconds
     // so updates per second could be 43/44 (1 / 0.0232199 = 43.07 bin fills in a second)
     // more FFTBins, the longer the fill time, but smaller frequency bin size - more accurate
@@ -132,13 +131,11 @@ public class SoundRecorderFragment extends Fragment {
                     return;
                 }
 
-                mCounter++;
 
                 if (mFragmentCallBacks != null && (mSystemTime + updateRate) <= System.currentTimeMillis()) {
                     // calculate FFT
                     mFragmentCallBacks.onPostExecuteCallBack(calculateFFT(mAudioRecordBuffer));
 
-                    mCounter = 0;
                     mSystemTime = System.currentTimeMillis();
                 }
             }
@@ -182,7 +179,7 @@ public class SoundRecorderFragment extends Fragment {
 
         complexDoubleFFT.ft(complex1D);
 
-        double[] frequencyMagnitudes = new double[FFTBuffer];
+        double[] frequencyMagnitudes = new double[FFTBuffer /2];
 
         int peakBinPosition = 0;
         double peakBinValue = 0.0;
