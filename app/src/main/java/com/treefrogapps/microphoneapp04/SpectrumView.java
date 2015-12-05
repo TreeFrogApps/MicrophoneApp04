@@ -115,7 +115,7 @@ public class SpectrumView extends View {
             mDrawLines[x1 + 3] = y1 - (int) (mFrequencyBins[i] * 50); // * 50 = gain level
 
             // changes distance between lines
-            x += mWidth / 512;
+            x += mWidth / mFrequencyBins.length;
 
             x1 += 4;
         }

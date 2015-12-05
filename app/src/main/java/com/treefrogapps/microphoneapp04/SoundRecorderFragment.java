@@ -147,6 +147,7 @@ public class SoundRecorderFragment extends Fragment {
 
     }
 
+
     private double[] calculateFFT(short[] audioBufferInput) {
 
         /** Frequency Bins
@@ -179,7 +180,7 @@ public class SoundRecorderFragment extends Fragment {
 
         complexDoubleFFT.ft(complex1D);
 
-        double[] frequencyMagnitudes = new double[FFTBuffer /2];
+        double[] frequencyMagnitudes = new double[FFTBuffer / 2];
 
         int peakBinPosition = 0;
         double peakBinValue = 0.0;
@@ -199,7 +200,7 @@ public class SoundRecorderFragment extends Fragment {
         }
 
         Log.i("PEAK VALUE " + String.valueOf(peakBinPosition),
-                String.valueOf(peakBinPosition * mSampleRate / FFTBuffer) + " - " + String.valueOf((peakBinPosition + 1) * mSampleRate / FFTBuffer)
+                String.valueOf(peakBinPosition * (mSampleRate / 2) / (FFTBuffer / 2)) + " - " + String.valueOf((peakBinPosition + 1) * (mSampleRate /2) / (FFTBuffer / 2))
                         + " : " + String.valueOf(peakBinValue));
 
         return frequencyMagnitudes;

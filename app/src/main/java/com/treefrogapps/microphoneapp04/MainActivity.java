@@ -95,8 +95,8 @@ public class MainActivity extends AppCompatActivity implements SoundRecorderFrag
                 peakBinValue = frequencyBins[i];
             }
         }
-        final String frequencyBin = String.valueOf(peakBinPosition * SoundRecorderFragment.mSampleRate / 1024
-                + "Hz - " + (peakBinPosition + 1) * SoundRecorderFragment.mSampleRate / 1024) + "Hz";
+        final String frequencyBin = String.valueOf(peakBinPosition * (SoundRecorderFragment.mSampleRate / 2) / (SoundRecorderFragment.FFTBuffer / 2)
+                + "Hz - " + (peakBinPosition + 1) * (SoundRecorderFragment.mSampleRate / 2) / (SoundRecorderFragment.FFTBuffer / 2) + "Hz");
 
         final double pBA = peakBinValue;
 
